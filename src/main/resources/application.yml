@@ -1,0 +1,27 @@
+spring:
+  cache:
+    type: redis
+  redis:
+    host: localhost
+    port: 6379
+
+zuul:
+  routes:
+    user:
+      path: /user/**
+      url: http://127.0.0.1:6000/
+    pos:
+      path: /pos/**
+      url: http://127.0.0.1:6001/
+    settlement:
+      path: /settlement/**
+      url: http://127.0.0.1:6002/
+
+  host:
+    socket-timeout-millis: 300000
+
+logging:
+  pattern:
+    console: "%clr(%X{CorrelationId}){yellow} %clr(%X{username}){yellow}%clr(%-5p) | %clr(%d{yyyy-MM-dd E HH:mm:ss.SSS}){blue} | %clr(${PID}){faint} | %clr([%t]){cyan} | %class{36}.%M %L | %clr(%msg){green} %n"
+  file:
+    name: ./opt/tomcat/logs/api-gateway.log
